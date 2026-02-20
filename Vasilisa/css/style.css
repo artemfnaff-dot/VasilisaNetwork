@@ -1,4 +1,9 @@
+/* ========================================
+   Bloody A89000 — Великая Мышь
+   Черно-белый минималистичный стиль
+   ======================================== */
 
+/* --- Сброс и базовые стили --- */
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +20,7 @@ body {
     cursor: crosshair;
 }
 
+/* --- Общие классы --- */
 .screen {
     display: none;
     min-height: 100vh;
@@ -55,6 +61,7 @@ body {
     font-weight: 300;
 }
 
+/* --- Кнопки --- */
 .btn {
     display: inline-block;
     padding: 18px 50px;
@@ -121,6 +128,7 @@ body {
     width: 100%;
 }
 
+/* --- Экран 6: Тест --- */
 .quiz-questions {
     width: 100%;
     max-width: 700px;
@@ -184,6 +192,7 @@ body {
     border-color: #ffffff;
 }
 
+/* Убегающий вариант */
 .quiz-option.runaway-active {
     position: absolute;
     z-index: 100;
@@ -191,6 +200,7 @@ body {
     transform: translateX(-50%);
 }
 
+/* Для троллинга с обменом */
 .quiz-option.swapping {
     pointer-events: none;
 }
@@ -309,6 +319,7 @@ body {
     margin-top: 20px;
 }
 
+/* --- Экран 1: Вступление --- */
 #intro-screen {
     text-align: center;
 }
@@ -346,6 +357,7 @@ body {
     transform: none !important;
 }
 
+/* --- Экран 2: Галерея --- */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -368,6 +380,20 @@ body {
     background: #0d0d0d;
 }
 
+/* 
+   ПЛЕЙСХОЛДЕР ДЛЯ ФОТО МЫШКИ
+   Чтобы заменить на своё фото:
+   1. Замените background-image: url(...) на ссылку к вашему изображению
+   2. Уберите background-color или оставьте для фона
+   3. Удалите content: "🖱️" если нужно только фото
+   
+   Пример замены:
+   .mouse-placeholder {
+       background-image: url('path/to/your/image.jpg');
+       background-size: cover;
+       background-position: center;
+   }
+*/
 .mouse-placeholder {
     width: 100%;
     aspect-ratio: 1;
@@ -385,65 +411,67 @@ body {
     content: "";
 }
 
+/* 
+   ИНДИВИДУАЛЬНЫЕ ФОТО ДЛЯ КАЖДОЙ КАРТОЧКИ
 */
 
-
+/* Карточка 1: Bloody A80 Pro Max Fold V2 */
 .mouse-card:nth-child(1) .mouse-placeholder {
     background-image: url('../photo/1.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 2: Bloody A70 Ultra Supreme Edition */
 .mouse-card:nth-child(2) .mouse-placeholder {
     background-image: url('../photo/2.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 3: Bloody A999 Nano Beast */
 .mouse-card:nth-child(3) .mouse-placeholder {
     background-image: url('../photo/3.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 4: Bloody A55 Quantum Stealth */
 .mouse-card:nth-child(4) .mouse-placeholder {
     background-image: url('../photo/4.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 5: Bloody A666 Demon Core */
 .mouse-card:nth-child(5) .mouse-placeholder {
     background-image: url('../photo/5.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 6: Bloody A420 Blaze It Elite */
 .mouse-card:nth-child(6) .mouse-placeholder {
     background-image: url('../photo/6.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 7: Bloody A001 Ancient Relic */
 .mouse-card:nth-child(7) .mouse-placeholder {
     background-image: url('../photo/7.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 8: Bloody A∞ Void Walker */
 .mouse-card:nth-child(8) .mouse-placeholder {
     background-image: url('../photo/8.jpg');
     background-size: cover;
     background-position: center;
 }
 
-
+/* Карточка 9: Bloody A777 Heaven Sent */
 .mouse-card:nth-child(9) .mouse-placeholder {
     background-image: url('../photo/9.png');
     background-size: cover;
@@ -491,7 +519,7 @@ body {
     border-bottom: none;
 }
 
-
+/* --- Экран 3: Эволюция --- */
 .evolution-timeline {
     display: flex;
     flex-wrap: wrap;
@@ -566,7 +594,7 @@ body {
     letter-spacing: 2px;
 }
 
-
+/* --- Экран 4: Наращивание названия --- */
 #name-screen {
     text-align: center;
 }
@@ -586,7 +614,7 @@ body {
     letter-spacing: 1px;
 }
 
-
+/* --- Экран 5: Финал --- */
 #final-screen {
     padding-bottom: 60px;
 }
@@ -609,8 +637,9 @@ body {
     hyphens: auto;
 }
 
- 
-
+/* 
+   ПЛЕЙСХОЛДЕР ДЛЯ ФИНАЛЬНОГО ФОТО МЫШКИ
+*/
 .final-mouse-placeholder {
     width: min(400px, 75vw);
     aspect-ratio: 1;
@@ -684,6 +713,7 @@ body {
     border-bottom: none;
 }
 
+/* --- Анимации --- */
 @keyframes float {
     0%, 100% {
         transform: translateY(0) rotate(0deg);
@@ -711,13 +741,13 @@ body {
     animation: fadeInUp 0.7s ease forwards;
 }
 
-
+/* Плавное появление контента экранов */
 .screen.active .container,
 .screen.active .intro-content {
     animation: fadeInUp 0.7s ease;
 }
 
-
+/* --- Адаптивность для мобильных --- */
 @media (max-width: 768px) {
     .screen {
         padding: 40px 15px;
