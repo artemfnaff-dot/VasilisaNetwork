@@ -1,0 +1,863 @@
+/* ========================================
+   Bloody A89000 — Великая Мышь
+   Черно-белый минималистичный стиль
+   ======================================== */
+
+/* --- Сброс и базовые стили --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+    cursor: crosshair;
+}
+
+/* --- Общие классы --- */
+.screen {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 20px;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    text-align: center;
+    margin-bottom: 10px;
+    color: #ffffff;
+    letter-spacing: 3px;
+}
+
+.section-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    text-align: center;
+    color: #666;
+    margin-bottom: 50px;
+    font-style: italic;
+    font-weight: 300;
+}
+
+/* --- Кнопки --- */
+.btn {
+    display: inline-block;
+    padding: 18px 50px;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    font-weight: 400;
+    text-decoration: none;
+    border: 1px solid #444;
+    border-radius: 30px;
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 20px auto;
+}
+
+.btn:hover {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+    transform: scale(1.03);
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-order {
+    font-size: clamp(1.1rem, 2.5vw, 1.2rem);
+    padding: 22px 70px;
+    margin-top: 40px;
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+.btn-order:hover {
+    background: #000000;
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+.btn-quiz {
+    font-size: clamp(1rem, 2.3vw, 1.1rem);
+    padding: 20px 60px;
+    margin-top: 20px;
+    background: transparent;
+    color: #ffffff;
+    border-color: #444;
+}
+
+.btn-quiz:hover {
+    background: #1a1a1a;
+    color: #ffffff;
+    border-color: #666;
+}
+
+.final-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+/* --- Экран 6: Тест --- */
+.quiz-questions {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.quiz-question {
+    display: none;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    padding: 35px;
+    animation: fadeInUp 0.5s ease;
+    overflow: visible;
+}
+
+.quiz-question.active {
+    display: block;
+}
+
+.quiz-question h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ffffff;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 1.4;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.quiz-option {
+    padding: 18px 25px;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #aaa;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.quiz-option:hover {
+    background: #111;
+    border-color: #444;
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.quiz-option.selected {
+    background: #ffffff;
+    color: #000000;
+    border-color: #ffffff;
+}
+
+/* Убегающий вариант */
+.quiz-option.runaway-active {
+    position: absolute;
+    z-index: 100;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Для троллинга с обменом */
+.quiz-option.swapping {
+    pointer-events: none;
+}
+
+.quiz-progress {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.quiz-progress-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #222;
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.quiz-progress-dot.active {
+    background: #ffffff;
+    border-color: #ffffff;
+}
+
+.quiz-progress-dot.completed {
+    background: #444;
+    border-color: #444;
+}
+
+.quiz-result {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    animation: fadeInUp 0.7s ease;
+}
+
+.result-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    padding: 40px;
+    text-align: center;
+}
+
+.result-mouse-placeholder {
+    width: min(280px, 70vw);
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a1a, #252525, #1a1a1a);
+    border-radius: 25px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    border: 1px solid #2a2a2a;
+}
+
+.result-title {
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    color: #ffffff;
+    margin-bottom: 20px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.result-description {
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    color: #888;
+    margin-bottom: 25px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+}
+
+.result-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 25px;
+    max-width: 500px;
+    text-align: left;
+}
+
+.result-features li {
+    padding: 10px 0;
+    padding-left: 22px;
+    position: relative;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    line-height: 1.5;
+    color: #aaa;
+    font-weight: 300;
+}
+
+.result-features li::before {
+    content: "▫";
+    position: absolute;
+    left: 0;
+    color: #555;
+}
+
+.result-features li:last-child {
+    border-bottom: none;
+}
+
+.result-history {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #666;
+    line-height: 1.7;
+    font-weight: 300;
+    padding: 20px;
+    background: #0d0d0d;
+    border-radius: 15px;
+    border: 1px solid #1a1a1a;
+    margin-top: 20px;
+}
+
+/* --- Экран 1: Вступление --- */
+#intro-screen {
+    text-align: center;
+}
+
+.intro-content {
+    max-width: 800px;
+    padding: 80px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 100px;
+    min-height: 450px;
+    position: relative;
+    width: 100%;
+}
+
+#intro-question {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    line-height: 1.4;
+    font-weight: 300;
+    letter-spacing: 1px;
+    max-width: 700px;
+    transition: opacity 0.3s ease;
+    text-align: center;
+    margin-top: 40px;
+}
+
+#intro-btn {
+    transition: none;
+    z-index: 10;
+    margin: 0;
+    margin-top: 80px;
+    position: static !important;
+    transform: none !important;
+}
+
+/* --- Экран 2: Галерея --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 35px;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.mouse-card {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 20px;
+    padding: 25px;
+    transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+
+.mouse-card:hover {
+    border-color: #333;
+    background: #0d0d0d;
+}
+
+/* 
+   ПЛЕЙСХОЛДЕР ДЛЯ ФОТО МЫШКИ
+   Чтобы заменить на своё фото:
+   1. Замените background-image: url(...) на ссылку к вашему изображению
+   2. Уберите background-color или оставьте для фона
+   3. Удалите content: "🖱️" если нужно только фото
+   
+   Пример замены:
+   .mouse-placeholder {
+       background-image: url('path/to/your/image.jpg');
+       background-size: cover;
+       background-position: center;
+   }
+*/
+.mouse-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a1a, #252525);
+    border-radius: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    border: 1px solid #2a2a2a;
+}
+
+.mouse-placeholder::before {
+    content: "";
+}
+
+/* 
+   ИНДИВИДУАЛЬНЫЕ ФОТО ДЛЯ КАЖДОЙ КАРТОЧКИ
+*/
+
+/* Карточка 1: Bloody A80 Pro Max Fold V2 */
+.mouse-card:nth-child(1) .mouse-placeholder {
+    background-image: url('../photo/1.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 2: Bloody A70 Ultra Supreme Edition */
+.mouse-card:nth-child(2) .mouse-placeholder {
+    background-image: url('../photo/2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 3: Bloody A999 Nano Beast */
+.mouse-card:nth-child(3) .mouse-placeholder {
+    background-image: url('../photo/3.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 4: Bloody A55 Quantum Stealth */
+.mouse-card:nth-child(4) .mouse-placeholder {
+    background-image: url('../photo/4.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 5: Bloody A666 Demon Core */
+.mouse-card:nth-child(5) .mouse-placeholder {
+    background-image: url('../photo/5.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 6: Bloody A420 Blaze It Elite */
+.mouse-card:nth-child(6) .mouse-placeholder {
+    background-image: url('../photo/6.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 7: Bloody A001 Ancient Relic */
+.mouse-card:nth-child(7) .mouse-placeholder {
+    background-image: url('../photo/7.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 8: Bloody A∞ Void Walker */
+.mouse-card:nth-child(8) .mouse-placeholder {
+    background-image: url('../photo/8.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Карточка 9: Bloody A777 Heaven Sent */
+.mouse-card:nth-child(9) .mouse-placeholder {
+    background-image: url('../photo/9.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.mouse-card h3 {
+    font-size: clamp(0.95rem, 2vw, 1.05rem);
+    margin-bottom: 18px;
+    color: #ffffff;
+    text-align: center;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.4;
+}
+
+.mouse-features {
+    list-style: none;
+    padding: 0;
+}
+
+.mouse-features li {
+    padding: 8px 0;
+    font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    color: #888;
+    border-bottom: 1px solid #1a1a1a;
+    padding-left: 18px;
+    position: relative;
+    font-weight: 300;
+}
+
+.mouse-features li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #555;
+}
+
+.mouse-features li:last-child {
+    border-bottom: none;
+}
+
+/* --- Экран 3: Эволюция --- */
+.evolution-timeline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 40px 0;
+    padding: 35px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.evolution-step {
+    text-align: center;
+    min-width: 110px;
+    padding: 15px;
+}
+
+.evolution-step.highlight {
+    border: 1px solid #444;
+    background: #111;
+    border-radius: 15px;
+}
+
+.evolution-placeholder {
+    font-size: 2.5rem;
+    margin-bottom: 8px;
+}
+
+.evolution-step p {
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #fff;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+}
+
+.evolution-era {
+    font-size: clamp(0.6rem, 1.2vw, 0.7rem);
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.evolution-arrow {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+.evolution-reveal {
+    text-align: center;
+    margin: 30px 0 50px;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.evolution-text {
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: #666;
+    font-weight: 300;
+}
+
+.evolution-text-error {
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+/* --- Экран 4: Наращивание названия --- */
+#name-screen {
+    text-align: center;
+}
+
+.mega-name {
+    font-size: clamp(0.9rem, 2vw, 1.5rem);
+    margin-bottom: 40px;
+    line-height: 1.6;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 35px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+/* --- Экран 5: Финал --- */
+#final-screen {
+    padding-bottom: 60px;
+}
+
+.final-name {
+    font-size: clamp(0.75rem, 1.6vw, 1.2rem);
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 35px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: 1px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+/* 
+   ПЛЕЙСХОЛДЕР ДЛЯ ФИНАЛЬНОГО ФОТО МЫШКИ
+*/
+.final-mouse-placeholder {
+    width: min(400px, 75vw);
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #1a1a1a, #252525, #1a1a1a);
+    border-radius: 30px;
+    margin: 0 auto 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7rem;
+    border: 1px solid #2a2a2a;
+    
+    background-image: url('../photo/final.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.final-mouse-placeholder::before {
+    content: "";
+    animation: float 4s ease-in-out infinite;
+}
+
+.features-list {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 35px;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    border-radius: 25px;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+}
+
+.features-list h3 {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.features-list ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.features-list li {
+    padding: 10px 0;
+    padding-left: 22px;
+    position: relative;
+    border-bottom: 1px solid #1a1a1a;
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+    line-height: 1.5;
+    color: #aaa;
+    font-weight: 300;
+}
+
+.features-list li::before {
+    content: "▫";
+    position: absolute;
+    left: 0;
+    color: #555;
+}
+
+.features-list li:last-child {
+    border-bottom: none;
+}
+
+/* --- Анимации --- */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    33% {
+        transform: translateY(-12px) rotate(2deg);
+    }
+    66% {
+        transform: translateY(-8px) rotate(-2deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Плавное появление контента экранов */
+.screen.active .container,
+.screen.active .intro-content {
+    animation: fadeInUp 0.7s ease;
+}
+
+/* --- Адаптивность для мобильных --- */
+@media (max-width: 768px) {
+    .screen {
+        padding: 40px 15px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 16px 40px;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .btn-order {
+        padding: 20px 50px;
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .evolution-timeline {
+        flex-direction: column;
+        gap: 10px;
+        padding: 25px;
+    }
+
+    .evolution-arrow {
+        transform: rotate(90deg);
+    }
+
+    .evolution-step {
+        min-width: 100%;
+    }
+
+    .final-mouse-placeholder {
+        width: 85vw;
+        font-size: 4.5rem;
+    }
+
+    .features-list {
+        padding: 25px;
+    }
+
+    .features-list ul {
+        grid-template-columns: 1fr;
+    }
+
+    .features-list li {
+        font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+        padding-left: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: clamp(1.2rem, 4vw, 1.5rem);
+    }
+
+    .section-subtitle {
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+    }
+
+    #intro-question {
+        font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+    }
+
+    .intro-content {
+        padding: 40px 20px;
+        gap: 40px;
+        min-height: 350px;
+    }
+
+    .mega-name {
+        font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+        padding: 25px;
+    }
+
+    .final-name {
+        font-size: clamp(0.65rem, 1.4vw, 0.75rem);
+        padding: 25px;
+    }
+
+    .mouse-card h3 {
+        font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+        min-height: 45px;
+    }
+
+    .mouse-features li {
+        font-size: clamp(0.7rem, 1.3vw, 0.8rem);
+    }
+
+    .evolution-placeholder {
+        font-size: 2rem;
+    }
+
+    .evolution-step p {
+        font-size: clamp(0.75rem, 1.5vw, 0.85rem);
+    }
+
+    .evolution-text {
+        font-size: clamp(1rem, 2vw, 1.1rem);
+    }
+
+    .evolution-text-error {
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    }
+}
