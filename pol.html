@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polegon — Интерактивные проекты</title>
+    <link rel="stylesheet" href="polegon/css/style.css">
+</head>
+<body>
+    <!-- Главный экран -->
+    <section id="home-screen" class="screen active">
+        <div class="container">
+            <!-- Логотип совы -->
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="polegon/PhotoPOL/avaPOL.png" alt="Polegon Logo" class="logo-image">
+                </div>
+                <h1 class="site-title">POLEGON</h1>
+                <p class="site-tagline">Интерактивные проекты и эксперименты</p>
+            </div>
+
+            <!-- Главное меню -->
+            <div class="main-menu">
+                <button class="menu-btn btn-large" data-target="projects-screen">
+                    <span class="btn-icon">📁</span>
+                    <span class="btn-text">Готовые проекты</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+
+                <button class="menu-btn btn-large" data-target="interactive-screen">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">Интерактив</span>
+                    <span class="btn-arrow">→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Экран проектов -->
+    <section id="projects-screen" class="screen">
+        <div class="container">
+            <button class="back-btn" data-target="home-screen">
+                <span>←</span> Назад
+            </button>
+
+            <h2 class="section-title">Готовые проекты</h2>
+            <p class="section-subtitle">Здесь собраны мои завершённые работы</p>
+
+            <div class="projects-grid">
+                <a href="Vasilisa/index.html" class="project-card">
+                    <div class="project-icon">🖱️</div>
+                    <h3 class="project-title">Vasilisa A89</h3>
+                    <p class="project-description">
+                        Интерактивная презентация легендарной мышки Bloody A89 Vasilisa. 
+                        Галерея, эволюция, абсурдные характеристики и рофл-тест.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Презентация</span>
+                        <span class="tag">Юмор</span>
+                        <span class="tag">Интерактив</span>
+                    </div>
+                </a>
+
+                <!-- Заглушка для будущих проектов -->
+                <div class="project-card project-coming-soon">
+                    <div class="project-icon">🔜</div>
+                    <h3 class="project-title">Скоро...</h3>
+                    <p class="project-description">
+                        Здесь появится новый проект. Следите за обновлениями!
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">В разработке</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Экран интерактивов -->
+    <section id="interactive-screen" class="screen">
+        <div class="container">
+            <button class="back-btn" data-target="home-screen">
+                <span>←</span> Назад
+            </button>
+
+            <h2 class="section-title">Интерактив</h2>
+            <p class="section-subtitle">Развлекательные тесты и эксперименты</p>
+
+            <div class="projects-grid">
+                <a href="polegon/quiz.html" class="project-card interactive-card">
+                    <div class="project-icon">🎮</div>
+                    <h3 class="project-title">Тест: Какая ты мышка?</h3>
+                    <p class="project-description">
+                        Рофл-тест с абсурдными вопросами про мышки, бедварс и клики. 
+                        3 результата + секретная концовка!
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Тест</span>
+                        <span class="tag">Юмор</span>
+                        <span class="tag">10 вопросов</span>
+                    </div>
+                </a>
+
+                <!-- Заглушка для будущих интерактивов -->
+                <div class="project-card project-coming-soon">
+                    <div class="project-icon">🔜</div>
+                    <h3 class="project-title">Скоро...</h3>
+                    <p class="project-description">
+                        Здесь появится новый интерактив. Что-то интересное уже в работе!
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">В разработке</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="polegon/js/main.js"></script>
+</body>
+</html>
